@@ -9,4 +9,14 @@
  * 
  * */
 
-// 
+/**
+ * -------------
+ * CONTEXT API
+ * -------------
+ * 1. create a context provider file 
+ * 2. coreate a context and set provider
+ * 3. set the children props
+ * 4. set context value 
+ * 
+ * 
+ * */ 
