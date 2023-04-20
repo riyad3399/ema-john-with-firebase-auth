@@ -3,6 +3,7 @@ import logo from "../../images/Logo.svg";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../Providers/AuthProvider";
+import { ToastContainer, toast } from "react-toastify";
 
 
 const Header = () => {
@@ -10,7 +11,9 @@ const Header = () => {
 
   const handelLogout = () => {
     logOut()
-      .then(() => {})
+      .then(() => {
+        toast.success('Sign out successful', {autoClose: 2000, theme: "light"})
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -31,6 +34,7 @@ const Header = () => {
           <span className="text-white">{user.email}</span> <button onClick={handelLogout}>Sign Out</button>
         </>
       )}
+      <ToastContainer theme="dark" autoClose={2000}></ToastContainer>
     </nav>
   );
 };

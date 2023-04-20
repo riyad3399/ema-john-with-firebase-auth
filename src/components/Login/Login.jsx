@@ -2,21 +2,19 @@ import React, { useContext, useState } from "react";
 import "./Login.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../Providers/AuthProvider";
+import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-
 
 const Login = () => {
-
-  const [error, setError] = useState('');
+  const [show, setShow] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   console.log(location);
 
-  const from = location.state?.from?.pathname || '/'
+  const from = location.state?.from?.pathname || "/";
 
   const { signInUser } = useContext(UserContext);
-  
 
   const handelLogin = (event) => {
     event.preventDefault();
@@ -28,21 +26,18 @@ const Login = () => {
     console.log(email, password);
 
     signInUser(email, password)
-      .then(result => {
+      .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
-        toast('Login successful')
-        setError('')
-        navigate(from, {replace: true})
+        toast.success("Login successful",{autoClose: 2000, theme: "dark"});
+        setError("");
+        navigate(from, { replace: true });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
-        setError(error.message)
-        setSuccess('')
-    })
-
-  }
-
+        setError(error.message);
+      });
+  };
 
   return (
     <div className="form-container">
@@ -54,15 +49,23 @@ const Login = () => {
         </div>
         <div className="form-control">
           <label htmlFor="password">Password</label>
-          <input type="password" name="password" id="" required />
+          <input
+            type={show ? "text" : "password"}
+            name="password"
+            id=""
+            required
+          />
         </div>
+        <p onClick={() => setShow(!show)}>
+          {show ? <span>Show password</span> : <span>Hide password</span>}
+        </p>
         <input className="btn-submit" type="submit" value="Login" />
       </form>
       <p className="toggol">
         New to Ema-jhon? <Link to="/signup">Create New Account</Link>
       </p>
       <p>{error}</p>
-      <ToastContainer></ToastContainer>
+      <ToastContainer theme="dark" autoClose={ 2000} />
     </div>
   );
 };

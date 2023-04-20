@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import "./SignUp.css";
 import { Link } from "react-router-dom";
 import { UserContext } from "../Providers/AuthProvider";
+import { ToastContainer, toast } from "react-toastify";
 
 const SignUp = () => {
   const [error, setError] = useState("");
@@ -34,6 +35,7 @@ const SignUp = () => {
       .then(result => {
         const loggedUser = result.user;
         console.log(loggedUser);
+        toast.success('Register successful', {theme:"colored", autoClose: 3000})
       })
       .catch(error => {
         console.log(error);
@@ -65,6 +67,7 @@ const SignUp = () => {
         Already have an Account ? <Link to="/login">Login</Link>
       </p>
       <p className="text-error">{error}</p>
+      <ToastContainer theme="colored" autoClose={3000}></ToastContainer>
     </div>
   );
 };
